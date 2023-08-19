@@ -10,6 +10,19 @@ body {
   display: flex;
 }
 
+#second,
+#score-board{
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  margin: 5vh;
+  font-size: 10vh;
+  color: #FFF;
+
+  border: 6px solid #FFF;
+  border-radius: 20px;
+}
+
 .memory-game{
   margin: auto;
   display: grid;
