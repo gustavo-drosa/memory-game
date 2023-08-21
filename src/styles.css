@@ -8,33 +8,25 @@ body {
   height: 100vh;
   background: #060AB2;
   display: flex;
+  justify-content: center;
 }
 
 #second,
 #score-board{
   display: flex;
-  align-items: start;
   justify-content: center;
   margin: 5vh;
   font-size: 10vh;
   color: #FFF;
-
-  border: 6px solid #FFF;
-  border-radius: 20px;
 }
 
 .memory-game{
-  margin: auto;
   display: grid;
-  flex-wrap: wrap;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  perspective: 1000px;
 
   padding: 16px;
   border: 6px solid #676aff;
-  
-  
 }
 
 .memory-card{
