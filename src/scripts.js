@@ -1,27 +1,29 @@
 //assim que a pagina termina de carregar aciona o cronometro
+//e aleatoriza a ordem do grid
 window.onload = function () {
   startStopwatch();
+  shuffleCards();
 };
 
-var score = 0;
+let blockFlip = false;
+let score = 0;
+
 const scoreElement = document.getElementById("score-board");
 
 const allCards = document.querySelectorAll(".memory-card");
 
-var securityLockCards = false;
 let hasFlippedCard = false;
 let firstCard, secondCard;
-
-shuffleCards();
 
 allCards.forEach((selectedCard) =>
   selectedCard.addEventListener("click", flipCard)
 );
 
 function flipCard() {
-  if (securityLockCards) {
-    return;
+  if(blockFlip){
+    return
   }
+
   if (this === firstCard) {
     return;
   }
@@ -30,46 +32,49 @@ function flipCard() {
 
   if (!hasFlippedCard) {
     // definindo ordem de virada de carta
-    // frist card
+    // first card
     hasFlippedCard = true;
     firstCard = this;
   } else {
     // second card
     secondCard = this;
     hasFlippedCard = false;
+    blockFlip = true;
 
     matchesCards(firstCard, secondCard);
   }
 }
 
 function matchesCards(firstCard, secondCard) {
-  //aqui eu adiciono o score
   if (
     firstCard.getAttribute("data-name") === secondCard.getAttribute("data-name")
   ) {
-    score += scoreModifier();
+    //modifying the socreboard
+    score = scoreModifier(score);
     firstCard.removeEventListener("click", flipCard); //removing the eventlistener from the cards
     secondCard.removeEventListener("click", flipCard);
 
     firstCard.classList.add("matchedCard");
     secondCard.classList.add("matchedCard");
-
-    checkCardsFlipped(allCards);
   } else {
-    securityLockCards = true;
-
     setTimeout(function () {
+      blockFlip = true;
       firstCard.classList.remove("flip");
       secondCard.classList.remove("flip");
 
       unflipCards();
     }, 600);
   }
+  blockFlip = false
+
+  checkCardsFlipped(allCards);
 }
 
 function unflipCards() {
-  [hasFlippedCard, securityLockCards] = [false, false];
-  [firstCard, secondCard] = [null, null];
+  blockFlip = false;
+  firstCard = null;
+  secondCard = null;
+  //resetando a ordem das cartas
   firstCard.classList.remove("matchedCard");
   secondCard.classList.remove("matchedCard");
 }
@@ -77,13 +82,15 @@ function unflipCards() {
 function shuffleCards() {
   allCards.forEach((cardPosition) => {
     let randomNumber = Math.floor(Math.random() * 12);
+    //definindo ordem aleatoria no grid
     cardPosition.style.order = randomNumber;
   });
 }
 
 //função pra adicionar o score no scoreboard
-function scoreModifier() {
+function scoreModifier(score) {
   //formulazinha:
+  let newScore = 0;
   if (second < 10) {
     newScore = 100 * 1.5;
   } else if (second < 20) {
@@ -93,12 +100,14 @@ function scoreModifier() {
   } else {
     newScore = 100 * 0.8;
   }
+  score += newScore;
 
-  updateScoreBoard();
-  return newScore;
+  updateScoreBoard(score);
+
+  return score;
 }
 
-function updateScoreBoard() {
+function updateScoreBoard(score) {
   scoreElement.textContent = `Score: ${score}`;
 }
 //função para mostrar o score, que organize em ordem descrescente
@@ -122,17 +131,15 @@ function formatTimer(time) {
 
 //verifica se todas as cartas estão flipadas
 function checkCardsFlipped(allCards) {
-  for (let index of allCards) {
-    if (allCards.index.contains("matchedCard")) {
-      gameOver();
-    } else {
-      return;
-    }
+  let classListArray = Array.from(allCards);
+  // se todas as divs de allCards possuem matchedCard = true else = false
+  if (classListArray.every((div) => div.classList.contains("matchedCard"))) {
+    gameOver();
   }
 }
 
 //stop the stopwatch and send a message
 function gameOver() {
-  console.log("está aqui");
+  console.log("GAMEOVER");
   clearInterval(stopwatch);
 }

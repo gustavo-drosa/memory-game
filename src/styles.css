@@ -6,21 +6,21 @@
 
 body {
   height: 100vh;
-  background: #060AB2;
+  background: #060ab2;
   display: flex;
   justify-content: center;
 }
 
 #second,
-#score-board{
+#score-board {
   display: flex;
   justify-content: center;
   margin: 5vh;
   font-size: 10vh;
-  color: #FFF;
+  color: #fff;
 }
 
-.memory-game{
+.memory-game {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
@@ -29,7 +29,7 @@ body {
   border: 6px solid #676aff;
 }
 
-.memory-card{
+.memory-card {
   border: 1px solid #ccc;
   width: 10em;
   height: 14em;
@@ -38,20 +38,20 @@ body {
   border-radius: 8px;
 
   transform-style: preserve-3d;
-  transition: transform .5s;
+  transition: transform 0.5s;
 }
 
-.memory-card:active{
+.memory-card:active {
   transform: scale(0.98);
   transition: 0.2s;
 }
 
-.memory-card.flip{
+.memory-card.flip {
   transform: rotateY(180deg);
 }
 
 .front-face,
-.back-face{
+.back-face {
   position: absolute;
   background-color: #676aff;
 
@@ -61,7 +61,6 @@ body {
   backface-visibility: hidden;
 }
 
-.front-face{
+.front-face {
   transform: rotateY(180deg);
 }
-
