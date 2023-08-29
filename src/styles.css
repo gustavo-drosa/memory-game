@@ -8,6 +8,13 @@ body {
   height: 100vh;
   background: #060ab2;
   display: flex;
+}
+
+.score-section{
+  width: 40%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
@@ -15,35 +22,34 @@ body {
 #score-board {
   display: flex;
   justify-content: center;
+
   margin: 5vh;
   font-size: 10vh;
   color: #fff;
 }
 
 .memory-game {
+  width: 60%;
+  height: 100vh;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  position: relative;
   gap: 12px;
-
   padding: 16px;
-  border: 6px solid #676aff;
+  margin-right: 5%;
 }
 
 .memory-card {
   border: 1px solid #ccc;
-  width: 10em;
-  height: 14em;
+  width: 100%;
+  height: 100%;
+  margin: 2%;
 
   position: relative;
   border-radius: 8px;
 
   transform-style: preserve-3d;
   transition: transform 0.5s;
-}
-
-.memory-card:active {
-  transform: scale(0.98);
-  transition: 0.2s;
 }
 
 .memory-card.flip {
@@ -54,6 +60,8 @@ body {
 .back-face {
   position: absolute;
   background-color: #676aff;
+  padding: 10px;
+  border-radius: 8px;
 
   width: 100%;
   height: 100%;
